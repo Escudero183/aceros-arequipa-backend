@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias alias="Worker" type="com.app.acerosarequipa.model.Worker" />
+        <typeAlias alias="Parameter" type="com.app.acerosarequipa.model.Parameter" />
+        <typeAlias alias="RequirementRequest" type="com.app.acerosarequipa.model.RequirementRequest" />
+    </typeAliases>
+    <mappers>
+        <mapper resource="mapper/WorkerMapper.xml" />
+        <mapper resource="mapper/ParameterMapper.xml" />
+        <mapper resource="mapper/RequirementRequestMapper.xml" />
+    </mappers>
+</configuration>

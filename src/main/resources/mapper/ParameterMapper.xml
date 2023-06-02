@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.acerosarequipa.mappers.ParameterMapper">
+	<select id="findAll" resultType="com.app.acerosarequipa.model.Parameter">
+        SELECT 
+        	t1.id_parameter AS idParameter,
+        	t1.keyparam AS keyparam,
+        	t1.value AS value
+        FROM parameter AS t1
+        ${q}
+    </select>
+    
+    <select id="findById" resultType="com.app.acerosarequipa.model.Parameter">
+        SELECT 
+        	t1.id_parameter AS idParameter,
+        	t1.keyparam AS keyparam,
+        	t1.value AS value
+        FROM parameter AS t1
+        ${q}
+    </select>
+    
+    <insert id="insert" parameterType="com.app.acerosarequipa.model.Parameter">
+        <selectKey keyProperty="idParameter" resultType="Integer" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO parameter (
+        	id_parameter,
+        	keyparam,
+        	value
+        ) VALUES (
+        	#{idParameter},
+        	#{keyparam},
+        	#{value}
+        )
+    </insert>
+    
+    <update id="update" parameterType="com.app.acerosarequipa.model.Parameter">                
+        UPDATE 
+            parameter 
+        SET
+            keyparam = #{keyparam},
+            value = #{value}
+        WHERE 
+            id_parameter = #{idParameter}              
+    </update>
+    
+    <delete id="delete" parameterType="Integer">                
+        DELETE FROM 
+            parameter
+        WHERE 
+            id_parameter = #{idParameter}             
+    </delete>
+</mapper>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.acerosarequipa.mappers.RequirementRequestMapper">
+	<select id="findAll" resultType="com.app.acerosarequipa.model.RequirementRequest">
+        SELECT 
+        	t1.id_requirement_request AS idRequirementRequest,
+        	t1.id_worker AS idWorker,
+        	t1.code AS code,
+        	t1.title AS title,
+        	t1.description AS description,
+        	t1.url_annex AS urlAnnex,
+        	t1.vb_record AS vbRecord,
+        	t1.vb_send_email AS vbSendEmail,
+        	t1.request_status AS requestStatus,
+        	t2.first_name AS firstNameWorker,
+        	t2.last_name AS lastNameWorker,
+        	t2.document AS documentWorker,
+        	t2.position AS positionWorker,
+        	t2.photo AS photoWorker,
+        	t2.email AS emailWorker
+        FROM requirement_request t1 INNER JOIN worker AS t2 ON (t1.worker = t2.worker)
+        ${q}
+    </select>
+    
+    <select id="findById" resultType="com.app.acerosarequipa.model.RequirementRequest">
+        SELECT 
+        	t1.id_requirement_request AS idRequirementRequest,
+        	t1.id_worker AS idWorker,
+        	t1.code AS code,
+        	t1.title AS title,
+        	t1.description AS description,
+        	t1.url_annex AS urlAnnex,
+        	t1.vb_record AS vbRecord,
+        	t1.vb_send_email AS vbSendEmail,
+        	t1.request_status AS requestStatus,
+        	t2.first_name AS firstNameWorker,
+        	t2.last_name AS lastNameWorker,
+        	t2.document AS documentWorker,
+        	t2.position AS positionWorker,
+        	t2.photo AS photoWorker,
+        	t2.email AS emailWorker
+        FROM requirement_request t1 INNER JOIN worker AS t2 ON (t1.id_worker = t2.id_worker)
+        ${q}
+    </select>
+    
+    <insert id="insert" parameterType="com.app.acerosarequipa.model.RequirementRequest">
+        <selectKey keyProperty="idRequirementRequest" resultType="Integer" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO requirement_request (
+       	 	id_requirement_request,
+        	id_worker,
+        	code,
+        	title,
+        	description,
+        	url_annex,
+        	vb_record,
+        	vb_send_email,
+        	request_status
+        ) VALUES (
+        	#{idRequirementRequest},
+        	#{idWorker},
+        	#{code},
+        	#{title},
+        	#{description},
+        	#{urlAnnex},
+        	#{vbRecord},
+        	#{vbSendEmail},
+        	#{requestStatus}
+        )
+    </insert>
+    
+    <update id="update" parameterType="com.app.acerosarequipa.model.RequirementRequest">                
+        UPDATE 
+            requirement_request 
+        SET
+            title = #{title},
+            description = #{description},
+            url_annex = #{urlAnnex},
+            id_worker = #{idWorker}
+        WHERE 
+            id_requirement_request = #{idRequirementRequest}              
+    </update>
+    
+    <update id="updateFile" parameterType="com.app.acerosarequipa.model.RequirementRequest">                
+        UPDATE 
+            requirement_request 
+        SET
+            url_annex = #{urlAnnex}
+        WHERE 
+            id_requirement_request = #{idRequirementRequest}              
+    </update>
+    
+    <delete id="delete" parameterType="Integer">                
+        DELETE FROM 
+            requirement_request
+        WHERE 
+            id_requirement_request = #{idRequirementRequest}               
+    </delete>
+</mapper>

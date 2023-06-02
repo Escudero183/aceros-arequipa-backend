@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.acerosarequipa.mappers.WorkerMapper">
+	<select id="findAll" resultType="com.app.acerosarequipa.model.Worker">
+        SELECT 
+        	t1.id_worker AS idWorker,
+        	t1.first_name AS firstName,
+        	t1.last_name AS lastName,
+        	t1.document AS document,
+        	t1.position AS position,
+        	t1.photo AS photo,
+        	t1.email AS email
+        FROM worker AS t1
+        ${q}
+    </select>
+    
+    <select id="findById" resultType="com.app.acerosarequipa.model.Worker">
+        SELECT 
+        	t1.id_worker AS idWorker,
+        	t1.first_name AS firstName,
+        	t1.last_name AS lastName,
+        	t1.document AS document,
+        	t1.position AS position,
+        	t1.photo AS photo,
+        	t1.email AS email
+        FROM worker AS t1
+        ${q}
+    </select>
+    
+    <insert id="insert" parameterType="com.app.acerosarequipa.model.Worker">
+        <selectKey keyProperty="idWorker" resultType="Integer" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO worker (
+        	id_worker,
+        	first_name,
+        	last_name,
+        	document,
+        	position,
+        	photo,
+        	email
+        ) VALUES (
+        	#{idWorker},
+        	#{firstName},
+        	#{lastName},
+        	#{document},
+        	#{position},
+        	#{photo},
+        	#{email}
+        )
+    </insert>
+    
+    <update id="update" parameterType="com.app.acerosarequipa.model.Worker">                
+        UPDATE 
+            worker 
+        SET
+            first_name = #{firstName},
+            last_name = #{lastName},
+            document = #{document},                        
+            position = #{position},
+            photo = #{photo},
+            email = #{email}
+        WHERE 
+            id_worker = #{idWorker}              
+    </update>
+    
+    <delete id="delete" parameterType="Integer">                
+        DELETE FROM 
+            worker
+        WHERE 
+            id_worker = #{idWorker}              
+    </delete>
+</mapper>
